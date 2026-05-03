@@ -8,4 +8,14 @@ set -e
 echo "Starting TcSystemServiceUm..."
 
 # Replaces the shell process with the TcSystemServiceUm process, ensuring proper signal handling
+# 0x4 is FastAsPossible, 0x7 should be realtime
 exec /usr/bin/TcSystemServiceUm -f 0x7 -i "${AMS_NETID}" -p /var/run/TcSystemServiceUm.pid
+
+if [ "$TC_RUN_MODE" = 'FAST_AS_POSSIBLE' ];  then
+    echo "Starting TcSystemServiceUm FastAsPossible"
+    exec /usr/bin/TcSystemServiceUm -f 0x4 -i "${AMS_NETID}" -p /var/run/TcSystemServiceUm.pid
+else
+    # $TC_RUN_MODE = REALTIME
+    echo "Starting TcSystemServiceUm Realtime"
+    exec /usr/bin/TcSystemServiceUm -f 0x7 -i "${AMS_NETID}" -p /var/run/TcSystemServiceUm.pid
+fi
