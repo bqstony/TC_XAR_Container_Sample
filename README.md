@@ -67,10 +67,19 @@ table inet filter {
   chain input {
     tcp dport 1883 accept
   }
+  # Docker netzwerk auf host muss weitergeleitet werden, daher ports ausgehend öffnen
   chain forward {
     type filter hook forward priority 0; policy drop;
+
+    # Antwortpakete für bereits aufgebaute Verbindungen zulassen
+    ct state established,related accept
+
     tcp sport 1883 accept
     tcp dport 1883 accept
+
+    # HTTPS für apt update erlauben
+    tcp sport 443 accept
+    tcp dport 443 accept
   }
 }
 ```

@@ -4,6 +4,9 @@ FROM debian:trixie-slim
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
     curl \
+    iputils-ping \
+    net-tools \
+    nano \
     ca-certificates
 
 # Use login information in the bhf.conf file to authenticate against deb*.beckhoff.com
