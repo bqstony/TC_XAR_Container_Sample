@@ -26,6 +26,7 @@ RUN --mount=type=secret,id=apt \
     apt-get -o "Dir::Etc::netrc=/run/secrets/apt" update \
     && apt-get -o "Dir::Etc::netrc=/run/secrets/apt" install --yes \
     tc31-xar-um \
+    tf6100-opc-ua-server \
     && rm -rf /var/lib/apt/lists/*
 
 # As an example, copy basic TwinCAT runtime configurations files
@@ -36,6 +37,7 @@ COPY TwinCAT/SysStartupState.reg $TC3_DIR/Target/RegFiles/
 EXPOSE 8016/tcp
 EXPOSE 48898/tcp
 EXPOSE 48899/udp
+EXPOSE 4840/tcp
 
 WORKDIR /app
 COPY entrypoint.sh /app/

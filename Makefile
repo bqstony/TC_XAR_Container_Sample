@@ -1,7 +1,7 @@
 # Define variables with defaults
-REGISTRY ?=
-IMAGE_OWNER ?=
-IMAGE_NAME ?= tc31-xar-base
+REGISTRY ?= ghcr.io/
+IMAGE_OWNER ?= bqstony/
+IMAGE_NAME ?= tc31-xar-base-opc
 IMAGE_TAG ?= latest
 
 IMAGE = $(REGISTRY)$(IMAGE_OWNER)$(IMAGE_NAME):$(IMAGE_TAG)
@@ -42,8 +42,8 @@ container-logs:
 # Display help information
 help:
 	@echo "Available targets:"
-	@echo "  build-image             Build the Docker image"
-	@echo "  push-image              Push the Docker image to the registry"
+	@echo "  build-image             Build the Docker image (Example: make build-image IMAGE_TAG=2026.05.26)"
+	@echo "  push-image              Push the Docker image to the registry (Example: make push-image IMAGE_TAG=2026.05.26)"
 	@echo "  run-containers          Start containers using Docker Compose"
 	@echo "  list-containers         List all containers managed by Docker Compose"
 	@echo "  stop-and-remove-containers Stop and remove containers managed by Docker Compose"
