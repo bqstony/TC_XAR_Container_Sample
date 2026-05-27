@@ -7,6 +7,8 @@ RUN apt-get update \
     iputils-ping \
     net-tools \
     nano \
+    top \
+    htop \
     ca-certificates
 
 # Use login information in the bhf.conf file to authenticate against deb*.beckhoff.com

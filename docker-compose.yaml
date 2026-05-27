@@ -53,5 +53,5 @@ services:
     environment:
       #- PCI_DEVICES=NONE
       - AMS_NETID=15.15.15.15.1.1
-      # Mode -> FAST_AS_POSSIBLE is regular proces / REALTIME is uses realtime capabilities of the host
+      # Mode -> FAST_AS_POSSIBLE is regular proces / REALTIME is uses realtime capabilities of the host /  Test is for testing purposes
       - TC_RUN_MODE=FAST_AS_POSSIBLE
