@@ -1,6 +1,9 @@
 FROM debian:trixie-slim
 
 # Install curl and ca-certificates to load bhf.asc signing file from beckhoff.com during build
+# busybox-syslogd: tiny syslog daemon so TcSystemServiceUm's syslog()
+# calls land in /var/log/messages (Linux equivalent of the Windows
+# TwinCAT System Event Logger).
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
     curl \
@@ -8,7 +11,8 @@ RUN apt-get update \
     net-tools \
     nano \
     procps \
-    ca-certificates
+    ca-certificates \
+    busybox-syslogd
 
 # Use login information in the bhf.conf file to authenticate against deb*.beckhoff.com
 # See https://manpages.debian.org/testing/apt/apt_auth.conf.5.en.html for more information

@@ -4,6 +4,23 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# Start a tiny syslog daemon so TcSystemServiceUm's syslog() calls (the
+# Linux-side equivalent of the Windows TwinCAT System Event Logger) land
+# on the container's stdout — `docker logs` then surfaces them alongside
+# the runtime's own stdout output.
+#   -n        run in foreground (keeps inherited fds alive)
+#   -f /dev/null  ignore /etc/syslog.conf (Debian ships one that would
+#                 otherwise route facilities to /var/log/syslog etc. and
+#                 override -O)
+#   -O -      write all log lines to syslogd's stdout, which is this
+#                 script's stdout (PID 1), i.e. the container pipe
+#                 surfaced by `docker logs`
+#   -S        compact output (drop redundant timestamp/host fields)
+if command -v busybox >/dev/null 2>&1 && [ ! -S /dev/log ]; then
+    busybox syslogd -n -S -f /dev/null -O - &
+fi
+
+
 # Indicate the script's start for logging purposes
 echo "Starting TcSystemServiceUm..."
 
