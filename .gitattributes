@@ -1,0 +1,7 @@
+# Set the default behavior, if Git thinks a file is text (as opposed to binary), 
+# also in case people don't have core.autocrlf set.
+* text=auto
+
+# Linux systems use LF
+*.xml text eol=lf
+*.pem text eol=lf
